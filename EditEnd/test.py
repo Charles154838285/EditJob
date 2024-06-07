@@ -11,8 +11,8 @@ CORS(app, resource={r'/*': {'origins': '*'}})
 
 @app.route('/adduser', methods=['get', 'post'])
 def adduser():
-    username = request.form.get("username")
-    password = request.form.get("password")
+    username = request.form.get("root")
+    password = request.form.get("Aa6336199")
     print(username)
     print(password)
     return "已接收用户信息"
@@ -32,18 +32,6 @@ def uploadimages():
     cv2.imwrite(filename=img1_path, img=file)
     url = "http://127.0.0.1:5000/static/images/"+username+"/" + picname
     print(url)
-    conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='root', charset='utf8')
-    cursor = conn.cursor()
-    conn.commit()
-    cursor.execute('use editdata')
-    sql = "INSERT INTO  `imgpath` (`username`,`url`,`picname`) VALUES('" + str(username) + "','" + str(url) + "','" + str(picname) + "');"
-    ""
-    print(sql)
-    count = cursor.execute(sql)
-    # print(count)
-    conn.commit()
-    cursor.close()
-    conn.close()
 
     tempmap = {"url": url}
     return jsonify(tempmap)
